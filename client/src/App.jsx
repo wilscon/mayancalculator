@@ -9,6 +9,7 @@ function App() {
   const [number, setNumber] = useState('');
   const [mayan, setMayan] = useState([]);
   const [displayResult, setDisplayResult] = useState(false);
+  const [displayCalculation, setDisplayCalculation] = useState(false);
   const [symbols, setSymbols] = useState([]);
   const [exponents, setExponents] = useState(0)
   
@@ -80,6 +81,7 @@ function App() {
   }
 
   setSymbols(tempSymbols);
+  setMayan(tempSymbols);
   setExponents(tempSymbols.length);
     //console.log("symbols: " + symbols);
     //console.log("symbols.length:" + symbols.length);  
@@ -149,15 +151,16 @@ return (
           </div>
           <div className='border-2 border-black p-4 rounded' style={{width: '25%'}}> 
             Calculation:
-             <div>
-             {[...Array(exponents)]
-  .map((_, index) => index)
-  .reverse()
-  .map(index => (
-    <p key={index}>
-      20 <sup>{index}</sup>
-    </p>
-  ))}
+            <button onClick={() => setDisplayCalculation(prev => !prev)}>{displayCalculation ? 'hide' : 'show'} </button>
+             <div style={{display: displayCalculation ? '' : 'none'}}>
+              {[...Array(exponents)]
+              .map((_, index) => index)
+              .reverse()
+              .map(index => (
+                <p key={index}>
+                  20 <sup>{index}</sup>
+                </p>
+              ))}
             </div>
           </div>
          <h3>Total: {number} </h3>
