@@ -123,16 +123,17 @@ return (
         <div>
           <h1 className="mb-4">Mayan Number Converter</h1>
         </div>
-        <div>
-          <form onSubmit={handleSubmit} className="flex items-center gap-2">
+        <div style={{width: '100%'}}>
+          <form onSubmit={handleSubmit} style={{display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center'        }}>
             <input
               type="number"
               value={number}
               onChange={(e) => setNumber(e.target.value)}
               placeholder="Enter a number"
               className="px-4 py-2 border rounded"
+              style={{borderRadius: '6px', border: '1px solid #D1D5DB', padding: '9px 13px', boxShadow: '0px 1px 2px 0px rgba(0,0,0,0.05)', flexGrow: '1', minWidth: '150px', maxWidth: '300px'}}
             />
-            <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            <button type="submit" style={{borderRadius: '6px', border: 'none', backgroundColor: '#141413', color: '#FAFAF8',width: '100px', fontSize: '0.875rem' }}>
               Convert
             </button>
           </form>
