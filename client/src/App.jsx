@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import dotImg from '/images/dot.png'
+import barImg from '/images/bar.png';
+import shellImg from '/images/shell.png';
 
-const dotImg = '/images/dot.png';
-const barImg = '/images/bar.png';
-const shellImg = '/images/shell.png';
 
 function App() {
   const [number, setNumber] = useState('');
@@ -15,38 +15,11 @@ function App() {
   const [factors, setFactors] = useState([]);
   
 
-  /*
-   const symbols = [];
-  const dot = 'dot';
-  const bar = 'bar';
-  const shell = 'shell';
-
-  if (number === 0) return [[shell]];
-
-  while (number > 0) {
-    let digit = number % 20;
-    const level = [];
-
-    if (digit === 0) {
-      level.push(shell);
-    } else {
-      const bars = Math.floor(digit / 5);
-      const dots = digit % 5;
-      for (let i = 0; i < bars; i++) level.push(bar);
-      for (let i = 0; i < dots; i++) level.push(dot);
-    }
-
-    symbols.unshift(level);
-    number = Math.floor(number / 20);
-  }
-
-  return symbols;
-}*/
-
   const handleSubmit = async (e) => {
+    e.preventDefault();
     console.log("inside handlesubmit");
     setSymbols([]);
-    e.preventDefault();
+
     setDisplayResult(true);
 
     const tempSymbols = [];
@@ -64,18 +37,28 @@ function App() {
   {
       let digit = input % 20;
       const level = [];
-
+      var row = [];
       if (digit === 0) {
-        level.push(shell);
+        //level.push(shell);
+        row.push(shell);
+        level.unshift(row);
       } else {
         const bars = Math.floor(digit / 5);
         const dots = digit % 5;
-        for (let i = 0; i < bars; i++) level.push(bar);
-        for (let i = 0; i < dots; i++) level.push(dot);
+        for (let i = 0; i < bars; i++){
+          row.push(bar);
+          level.unshift(row);  
+          row = [];
+        } 
+        
+        for (let i = 0; i < dots; i++){
+          row.push(dot);
+        } 
+        level.unshift(row);
       }
 
      
-      console.log("level: " + level)
+      console.log("level " + level)
        tempSymbols.unshift(level);
       console.log("temmpSymbols: " + tempSymbols)
 
@@ -90,32 +73,22 @@ function App() {
   setFactors(tempFactors);
    
 
-    
-   /* try {
-      const response = await axios.post('/api/convert', {
-        number: parseInt(number)
-      });
-      setResult(true)
-      setMayan(response.data.mayan);
-    } catch (err) {
-      alert('Error converting number');
-    }*/
+  
   };
 
   const renderSymbol = (symbol) => {
+    console.log("renderSymbol symbol: " + symbol);
     switch (symbol) {
       case 'dot':
         return <img src={dotImg} alt="dot" className="inline w-6 h-6 mx-1 max-w-[100px]" />;
       case 'bar':
-        return <img src={barImg} alt="bar" className="inline w-10 h-4 mx-1 max-w-[100px]" />;
+        return <img src={barImg} alt="bar" className="inline" style={{width: '100%', height: "75px"}} />;
       case 'shell':
         return <img src={shellImg} alt="shell" className="inline w-8 h-5 mx-1 max-w-[100px]" />;
       default:
         return <span>{symbol}</span>;
     }
   };
-
-  
 
 return (
     <div className={'flex flex-col items-center justify-center h-screen bg-gray-100 px-4 sm:px-6'}>
@@ -143,32 +116,32 @@ return (
           <h3>Result:</h3>
         </div>
         <div className='flex' style={{display: displayResult ? '' : 'none', width: '100%'}}>
-          <div className="mt-4 border-2 border-black p-4 rounded" style={{width: '75%'}}>
-            {mayan.map((level, index) => (
-              <div key={index} style={{ margin: '10px 0', textAlign: 'center',  }}>
-                {level.map((symbol, i) => (
-                  <span key={i}>{renderSymbol(symbol)}</span>
+          <div className="mt-4 border-2 border-black p-4 rounded" style={{width: '100%'}}>
+            {mayan.map((level, index) => {
+               const reverseIndex = factors.length - 1 - index;
+              return(
+              <div className='flex'>
+              <div key={index} style={{textAlign: 'center', width: '75%', borderTop: '1px solid black' }}>
+                {level.map((row, i) => (
+                 
+                  <div key={i}>
+                    {row.map((symbol,i) =>(
+                     <>{renderSymbol(symbol)}</>
+                    ))}
+                  </div>
+                    
+                  
                 ))}
               </div>
-            ))}
+              <div className='flex' style={{width: '25%', justifyContent: 'center', alignItems:'center', borderLeft: '1px solid black', borderTop: '1px solid black'}}>
+                <p>20 <sup>{reverseIndex}</sup> x {factors[index]}</p>
+              </div>
+              </div>
+              );})}
+             
           </div>
-          <div className='border-2 border-black p-4 rounded' style={{width: '25%'}}> 
-            Calculation:
-            <button onClick={() => setDisplayCalculation(prev => !prev)}>{displayCalculation ? 'hide' : 'show'} </button>
-             <div style={{display: displayCalculation ? '' : 'none'}}>
-            {factors.map((value, index) => {
-  const reverseIndex = factors.length - 1 - index;
-  return (
-    <p key={index}>
-      20 <sup>{reverseIndex}</sup> X {value}
-    </p>
-  );
-})}
-            </div>
-          </div>
+         </div>
          <h3>Total: {number} </h3>
-        </div>
-        
        
       </div>
     </div>
