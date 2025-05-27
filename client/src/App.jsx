@@ -114,7 +114,11 @@ return (
         </div>
         
         <div className='flex' style={{width: '100%'}}>
-          <h3>Result:</h3>
+          <div style={{width: '75%'}}>
+            <h3>Result:</h3>
+          </div>
+          <div style={{width: '25%'}}>
+            <h3>Calculation:</h3></div>
         </div>
         <div className='flex' style={{display: displayResult ? '' : 'none', width: '100%'}}>
           <div className="mt-4 border-2 border-black p-4 rounded" style={{width: '100%'}}>
@@ -135,7 +139,7 @@ return (
                 ))}
               </div>
               <div className='flex' style={{width: '25%', justifyContent: 'center', alignItems:'center', borderLeft: '1px solid black', borderTop: '1px solid black'}}>
-                <p>20 <sup>{reverseIndex}</sup> x {factors[index]}</p>
+                <p>20 <sup>{reverseIndex}</sup> x {factors[index]} = {Math.pow(20,reverseIndex) * factors[index]}</p>
               </div>
               </div>
               );})}
