@@ -70,7 +70,15 @@ const Converter = () => {
       const bar = 'bar';
       const shell = 'shell';
     
-      if (input === 0) return [[shell]];
+      if (Number(input) === 0) {
+        const zeroSymbols = [[[shell]]];
+        const zeroFactors = [0];
+        setSymbols(zeroSymbols);
+        setMayan(zeroSymbols);
+        setExponents(1);
+        setFactors(zeroFactors);
+        return;
+      }
     
       while (input > 0) 
       {
@@ -149,7 +157,7 @@ return (
                         Convert
                     </button>
                 </form>
-                {error && <p style={{color: 'red'}} className=" mt-2 text-center">{error}</p>}
+                {error && <p style={{color: 'red'}} className="mt-2 text-center">{error}</p>}
             </div>
             <div className='' style={{ width: '100%', display: displayResult ? '' : 'none' }}>
                 <div className='flex'>
