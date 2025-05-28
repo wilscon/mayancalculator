@@ -7,16 +7,17 @@ import shellImg from '/images/shell.png';
 
 const Converter = () => {
     const [number, setNumber] = useState('');
-      const [mayan, setMayan] = useState([]);
-      const [displayResult, setDisplayResult] = useState(false);
-      const [displayCalculation, setDisplayCalculation] = useState(false);
-      const [symbols, setSymbols] = useState([]);
-      const [exponents, setExponents] = useState(0);
-      const [factors, setFactors] = useState([]);
+    const [inputValue, setInputValue] = useState('');
+    const [mayan, setMayan] = useState([]);
+    const [displayResult, setDisplayResult] = useState(false);
+    const [displayCalculation, setDisplayCalculation] = useState(false);
+    const [symbols, setSymbols] = useState([]);
+    const [exponents, setExponents] = useState(0);
+    const [factors, setFactors] = useState([]);
       
-    
-      const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setNumber(inputValue);
         console.log("inside handlesubmit");
         setSymbols([]);
     
@@ -25,7 +26,7 @@ const Converter = () => {
         const tempSymbols = [];
         const tempFactors = [];
     
-        var input = number;
+        var input = inputValue;
         //const symbols = [];
       const dot = 'dot';
       const bar = 'bar';
@@ -100,8 +101,8 @@ return (
                 <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
                     <input
                         type="number"
-                        value={number}
-                        onChange={(e) => setNumber(e.target.value)}
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
                         placeholder="Enter a number"
                         className="px-4 py-2 border rounded"
                         style={{ borderRadius: '6px', border: '1px solid #D1D5DB', padding: '9px 13px', boxShadow: '0px 1px 2px 0px rgba(0,0,0,0.05)', flexGrow: '1', minWidth: '150px', maxWidth: '300px' }}
