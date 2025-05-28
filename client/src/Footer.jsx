@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-4" style={{backgroundColor: 'black', color: 'white', width: '100%'}}>
+    <footer className="w-screen bg-black text-white py-4" style={{backgroundColor: 'black', color: 'white'}}>
       <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row sm:justify-between sm:items-center text-center sm:text-left space-y-2 sm:space-y-0">
         <p>
           Made by{' '}
