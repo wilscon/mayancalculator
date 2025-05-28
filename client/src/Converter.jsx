@@ -14,9 +14,47 @@ const Converter = () => {
     const [symbols, setSymbols] = useState([]);
     const [exponents, setExponents] = useState(0);
     const [factors, setFactors] = useState([]);
+    const [error, setError] = useState('');
       
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
+        
+        if (inputValue === '') {
+            setError('Please enter a number');
+            setDisplayResult(false);
+            return;
+        }
+
+        // Check if input is a valid number
+        if (isNaN(inputValue)) {
+            setError('Please enter a valid number');
+            setDisplayResult(false);
+            return;
+        }
+
+        // Convert to number for further checks
+        const numValue = Number(inputValue);
+
+        if (numValue < 0) {
+            setError('Please enter a positive number');
+            setDisplayResult(false);
+            return;
+        }
+
+        if (!Number.isInteger(numValue)) {
+            setError('Please enter a whole number');
+            setDisplayResult(false);
+            return;
+        }
+
+        // Check for maximum value (using a reasonable limit)
+        if (numValue > 999999999) {
+            setError('Number is too large. Please enter a number less than 1 billion');
+            setDisplayResult(false);
+            return;
+        }
+        
         setNumber(inputValue);
         console.log("inside handlesubmit");
         setSymbols([]);
@@ -98,7 +136,7 @@ return (
                 <h1 className="mb-4">Mayan Number Converter</h1>
             </div>
             <div style={{ width: '100%' }}>
-                <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
+                <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
                     <input
                         type="number"
                         value={inputValue}
@@ -111,6 +149,7 @@ return (
                         Convert
                     </button>
                 </form>
+                {error && <p style={{color: 'red'}} className=" mt-2 text-center">{error}</p>}
             </div>
             <div className='' style={{ width: '100%', display: displayResult ? '' : 'none' }}>
                 <div className='flex'>
