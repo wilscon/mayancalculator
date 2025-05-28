@@ -91,75 +91,76 @@ const Converter = () => {
       };
 return (
 
-<div className={'flex flex-col items-center flex-grow bg-gray-100 px-4 sm:px-6'}>
-      <div className="flex flex-col items-center justify-center mb-4 mt-8">
-        <div>
-          <h1 className="mb-4">Mayan Number Converter</h1>
+    <div className={'flex flex-col items-center flex-grow bg-gray-100 px-4 sm:px-6'}>
+        <div className="flex flex-col items-center justify-center mb-4 mt-8">
+            <div>
+                <h1 className="mb-4">Mayan Number Converter</h1>
+            </div>
+            <div style={{ width: '100%' }}>
+                <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center' }}>
+                    <input
+                        type="number"
+                        value={number}
+                        onChange={(e) => setNumber(e.target.value)}
+                        placeholder="Enter a number"
+                        className="px-4 py-2 border rounded"
+                        style={{ borderRadius: '6px', border: '1px solid #D1D5DB', padding: '9px 13px', boxShadow: '0px 1px 2px 0px rgba(0,0,0,0.05)', flexGrow: '1', minWidth: '150px', maxWidth: '300px' }}
+                    />
+                    <button type="submit" style={{ borderRadius: '6px', border: 'none', backgroundColor: '#141413', color: '#FAFAF8', width: '100px', fontSize: '0.875rem' }}>
+                        Convert
+                    </button>
+                </form>
+            </div>
+            <div className='' style={{ width: '100%', display: displayResult ? '' : 'none' }}>
+                <div className='flex'>
+                    <div style={{ width: '75%' }}>
+                    <h3 style={{ marginBottom: '0px' }}>Result:</h3>
+                </div>
+                <div style={{ width: '25%' }}>
+                    <h3 style={{ marginBottom: '0px' }}>Calculation:</h3>
+                </div>
+                </div>
+                
+                               
+                <div className='' style={{ width: '100%' }}>
+                    <div className="mt-4 border-2 border-black p-4 rounded" style={{ width: '100%' }}>
+                        {mayan.map((level, index) => {
+                            const reverseIndex = factors.length - 1 - index;
+                            return (
+                                <div className='flex'>
+                                    <div key={index} style={{ textAlign: 'center', width: '75%', borderTop: '1px solid black' }}>
+                                        {level.map((row, i) => (
+
+                                            <div key={i}>
+                                                {row.map((symbol, i) => (
+                                                    <>{renderSymbol(symbol)}</>
+                                                ))}
+                                            </div>
+
+
+                                        ))}
+                                    </div>
+                                    <div className='flex' style={{ width: '25%', justifyContent: 'center', alignItems: 'center', borderLeft: '1px solid black', borderTop: '1px solid black' }}>
+                                        <p>20 <sup>{reverseIndex}</sup> x {factors[index]} = {Math.pow(20, reverseIndex) * factors[index]}</p>
+                                    </div>
+                                </div>
+                            );
+                        })}
+
+                    </div>
+                </div>
+                <div className='flex' style={{ width: '100%' }}>
+                    <div style={{ width: '75%' }}>
+                    </div>
+                    <div>
+                        <h3 style={{ marginLeft: '5px' }}>Total: {number} </h3>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-        <div style={{width: '100%'}}>
-          <form onSubmit={handleSubmit} style={{display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center'        }}>
-            <input
-              type="number"
-              value={number}
-              onChange={(e) => setNumber(e.target.value)}
-              placeholder="Enter a number"
-              className="px-4 py-2 border rounded"
-              style={{borderRadius: '6px', border: '1px solid #D1D5DB', padding: '9px 13px', boxShadow: '0px 1px 2px 0px rgba(0,0,0,0.05)', flexGrow: '1', minWidth: '150px', maxWidth: '300px'}}
-            />
-            <button type="submit" style={{borderRadius: '6px', border: 'none', backgroundColor: '#141413', color: '#FAFAF8',width: '100px', fontSize: '0.875rem' }}>
-              Convert
-            </button>
-          </form>
-        </div>
-        
-        <div>
-          
-        </div>
-        <div className='flex' style={{width: '100%'}}>
-          <div style={{width: '75%'}}>
-            <h3 style={{marginBottom: '0px'}}>Result:</h3>
-          </div>
-          <div style={{width: '25%'}}>
-            <h3 style={{marginBottom: '0px'}}>Calculation:</h3></div>
-        </div>
-        <div className='flex' style={{display: displayResult ? '' : 'none', width: '100%'}}>
-          <div className="mt-4 border-2 border-black p-4 rounded" style={{width: '100%'}}>
-            {mayan.map((level, index) => {
-               const reverseIndex = factors.length - 1 - index;
-              return(
-              <div className='flex'>
-              <div key={index} style={{textAlign: 'center', width: '75%', borderTop: '1px solid black' }}>
-                {level.map((row, i) => (
-                 
-                  <div key={i}>
-                    {row.map((symbol,i) =>(
-                     <>{renderSymbol(symbol)}</>
-                    ))}
-                  </div>
-                    
-                  
-                ))}
-              </div>
-              <div className='flex' style={{width: '25%', justifyContent: 'center', alignItems:'center', borderLeft: '1px solid black', borderTop: '1px solid black'}}>
-                <p>20 <sup>{reverseIndex}</sup> x {factors[index]} = {Math.pow(20,reverseIndex) * factors[index]}</p>
-              </div>
-              </div>
-              );})}
-             
-          </div>
-           
-         </div>
-        <div className='flex' style={{width: '100%'}}>
-         <div style={{width: '75%'}}>
-          </div>
-          <div>
-            <h3 style={{marginLeft: '5px'}}>Total: {number} </h3>
-          </div> 
-               
-        </div>
-      
-      </div>
-      
+
     </div>
 
 
